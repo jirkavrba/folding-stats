@@ -2,8 +2,7 @@
     <a :href="'https://stats.foldingathome.org/team/' + id" target="_blank" class="counter" :style="'outline-color:' + color">
         <img :src="logo" alt="Logo" class="counter__logo">
         <h1 class="counter__name">{{ name }}</h1>
-        <div v-if="loading" class="counter__loading">Loading...</div>
-        <div v-else :style="'color:' + color" class="counter__count">{{ count }}</div>
+        <div :style="'color:' + color + ';' + (loading ? 'opacity: 0.2' : '')" class="counter__count">{{ count }}</div>
     </a>
 </template>
 
@@ -12,6 +11,7 @@
         name: "Counter",
         data: () => ({
             loading: true,
+            error: false,
             count: 0
         }),
         props: [
@@ -35,6 +35,7 @@
                         this.loading = false
                         this.count = response.credit.toLocaleString().replace(/,/g, " ")
                     })
+                    .catch(() => this.error = true)
             }
         }
     }

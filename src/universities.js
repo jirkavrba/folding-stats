@@ -1,4 +1,3 @@
-
 const logos = {
     cvut: "https://imgur.com/766hfjg.png",
     vut: "https://imgur.com/7VmUz23.png",
@@ -29,183 +28,200 @@ const colors = {
 
 export default [
     {
-        id: 245800,
-        name: "FIT_CTU",
+        name: "ČVUT",
         logo: logos.cvut,
         color: colors.cvut,
+        teams: [
+            {
+                id: 245800,
+                name: "FIT_CTU",
+            },
+            {
+                id: 39206,
+                name: "CVUT Prague",
+            },
+            {
+                id: 256857,
+                name: "CTUFEECS",
+            },
+            {
+                id: 239224,
+                name: "FME-CTUinPrague",
+            },
+            {
+                id: 252064,
+                name: "CTU in Prague",
+            },
+            {
+                id: 242848,
+                name: "ISC CTU in Prague",
+            },
+            {
+                id: 241054,
+                name: "SilliconHill",
+            },
+            {
+                id: 240945,
+                name: "DCGI Prague",
+            },
+            {
+                id: 157986,
+                name: "FJFI Team",
+            },
+            {
+                id: 256859,
+                name: "kiifsvcvut",
+            },
+            {
+                id: 254015,
+                name: "Multi-Robot Systems in CTU",
+            },
+        ]
     },
     {
-        id: 39206,
-        name: "CVUT Prague",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 256857,
-        name: "CTUFEECS",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 239224,
-        name: "FME-CTUinPrague",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 252064,
-        name: "CTU in Prague",
-        logo: logos.cvut,
-        color: colors.cvut,
-    },
-    {
-        id: 242848,
-        name: "ISC CTU in Prague",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 241054,
-        name: "SilliconHill",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 240945,
-        name: "DCGI Prague",
-        logo: logos.cvut,
-        color: colors.cvut,
-    },
-    {
-        id: 157986,
-        name: "FJFI Team",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 256859,
-        name: "kiifsvcvut",
-        logo: logos.cvut,
-        color: colors.cvut,
-    },
-    {
-        id: 254015,
-        name: "Multi-Robot Systems in CTU",
-        logo: logos.cvut,
-        color: colors.cvut
-    },
-    {
-        id: 241584,
         name: "CZU",
         logo: logos.czu,
         color: colors.czu,
+        teams: [
+            {
+                id: 241584,
+                name: "CZU"
+            },
+            {
+                id: 236633,
+                name: "FEM CZU Prague",
+            },
+        ]
     },
     {
-        id: 236633,
-        name: "FEM CZU Prague",
-        logo: logos.czu,
-        color: colors.czu,
-    },
-    {
-        id: 244168,
-        name: "Zapadoceska univerzita v Plzni (www.ZCU.CZ)",
+        name: "ZCU",
         logo: logos.zcu,
         color: colors.zcu,
+        teams: [
+            {
+                id: 244168,
+                name: "Zapadoceska univerzita v Plzni (www.ZCU.CZ)",
+            },
+            {
+                id: 237170,
+                name: "Zapadoceska univerzita v Plzni",
+            },
+            {
+                id: 243392,
+                name: "KIV-ZCU-Plzen",
+            },
+        ]
     },
     {
-        id: 237170,
-        name: "Zapadoceska univerzita v Plzni",
-        logo: logos.zcu,
-        color: colors.zcu,
-    },
-    {
-        id: 243392,
-        name: "KIV-ZCU-Plzen",
-        logo: logos.zcu,
-        color: colors.zcu
-    },
-    {
-        id: 246110,
-        name: "folding@vut.fast",
+        name: "VUT",
         logo: logos.vut,
         color: colors.vut,
+        teams: [
+            {
+                id: 246110,
+                name: "folding@vut.fast",
+            },
+            {
+                id: 236588,
+                name: "FIT VUT",
+            },
+            {
+                id: 249477,
+                name: "Brno University of Technology",
+            },
+            {
+                id: 243614,
+                name: "Faculty of Mechanical Engineering BUT BRNO",
+            },
+            {
+                id: 1685,
+                name: "VUT - Technical University of Brno",
+            },
+        ]
     },
     {
-        id: 236588,
-        name: "FIT VUT",
-        logo: logos.vut,
-        color: colors.vut,
-    },
-    {
-        id: 249477,
-        name: "Brno University of Technology",
-        logo: logos.vut,
-        color: colors.vut,
-    },
-    {
-        id: 243614,
-        name: "Faculty of Mechanical Engineering BUT BRNO",
-        logo: logos.vut,
-        color: colors.vut,
-    },
-    {
-        id: 1685,
-        name: "VUT - Technical University of Brno",
-        logo: logos.vut,
-        color: colors.vut,
-    },
-    {
-        id: 249147,
-        name: "University of Economics, Prague (VSE)",
+        name: "VŠE",
         logo: logos.vse,
         color: colors.vse,
+        teams: [
+            {
+                id: 249147,
+                name: "University of Economics, Prague (VSE)",
+            }
+        ]
     },
     {
-        id: 242176,
-        name: "Tomas Bata University in Zlin",
+        name: "UTB",
         logo: logos.utb,
-        color: colors.utb
+        color: colors.utb,
+        teams: [
+            {
+                id: 242176,
+                name: "Tomas Bata University in Zlin",
+            }
+        ]
     },
     {
-        id: 257394,
-        name: "Faculty of Science, Charles University",
+        name: "UK",
         logo: logos.cuni,
         color: colors.cuni,
+        teams: [
+            {
+                id: 257394,
+                name: "Faculty of Science, Charles University",
+            },
+            {
+                id: 10070,
+                name: "Charles University",
+            },
+            {
+                id: 258188,
+                name: "Central Library of Charles University",
+            },
+        ]
     },
     {
-        id: 10070,
-        name: "Charles University",
-        logo: logos.cuni,
-        color: colors.cuni,
-    },
-    {
-        id: 258188,
-        name: "Central Library of Charles University",
-        logo: logos.cuni,
-        color: colors.cuni,
-    },
-    {
-        id: 244444,
-        name: "IOCB_Prague",
+        name: "AV",
         logo: logos.av,
         color: colors.av,
+        teams: [
+            {
+                id: 244444,
+                name: "IOCB_Prague",
+            },
+        ]
     },
     {
-        id: 239045,
-        name: "Silesian University in Opava",
+        name: "SLU",
         logo: logos.slu,
-        color: colors.slu
+        color: colors.slu,
+        teams: [
+            {
+                id: 239045,
+                name: "Silesian University in Opava",
+            }
+        ]
     },
     {
-        id: 124210,
-        name: "IS PdF Univerzita HK Czech",
+        name: "UHK",
         logo: logos.uhk,
-        color: colors.uhk
+        color: colors.uhk,
+        teams: [
+            {
+                id: 124210,
+                name: "IS PdF Univerzita HK Czech",
+            },
+        ]
     },
     {
-        id: 256262,
-        name: "MENDELU_POMAHA",
+        name: "MENDELU",
         logo: logos.mendelu,
-        color: colors.mendelu
+        color: colors.mendelu,
+        teams: [
+            {
+                id: 256262,
+                name: "MENDELU_POMAHA",
+            }
+        ]
     }
 ];

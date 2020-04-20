@@ -3,28 +3,29 @@
         <h1 class="title">Folding<span class="at">@</span>Home</h1>
 
         <div class="menu">
-            <button class="menu_item" @click="ungroup">Jednotlivé teamy</button>
-            <button class="menu_item" @click="group">Univerzity</button>
+            <button class="menu__item" @click="ungroup">Jednotlivé teamy</button>
+            <button class="menu__item" @click="group">Univerzity</button>
         </div>
 
         <div class="container">
             <div class="row counters" v-if="grouped">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(group, index) in groups" :key="index">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities"
+                     :key="index">
                     <GroupCounter
-                            :name="group.name"
-                            :logo="group.logo"
-                            :color="group.color"
-                            :teams="group.teams"
+                            :name="university.name"
+                            :logo="university.logo"
+                            :color="university.color"
+                            :teams="university.teams"
                     />
                 </div>
             </div>
             <div class="row counters" v-else>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities" :key="index">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in teams" :key="index">
                     <Counter
-                            :id="university.id"
-                            :name="university.name"
-                            :logo="university.logo"
-                            :color="university.color"
+                            :id="team.id"
+                            :name="team.name"
+                            :logo="team.logo"
+                            :color="team.color"
                     />
                 </div>
             </div>
@@ -34,12 +35,15 @@
 
 <script>
     import Counter from './components/Counter.vue'
+    import GroupCounter from './components/GroupCounter.vue'
+
     import universities from "./universities";
 
     export default {
         name: 'App',
         components: {
-            Counter
+            Counter,
+            GroupCounter
         },
         methods: {
             group() {
@@ -50,9 +54,16 @@
             }
         },
         data: () => ({
-            grouped: false,
-            universities,
-        }),
+                grouped: false,
+                universities: universities,
+                teams: universities.map(university => university.teams.map(team => ({
+                    id: team.id,
+                    name: team.name,
+                    color: university.color,
+                    logo: university.logo
+                }))).flat()
+            }
+        ),
     }
 </script>
 
@@ -71,6 +82,24 @@
         flex-flow: row nowrap;
         align-items: center;
         justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    .app .menu__item {
+        color: #ffffff;
+        background: #000000;
+        border: 3px solid #000000;
+        margin: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.5rem;
+        font-family: 'Unica One', monospace;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    .app .menu__item:focus, .app .menu__item:hover {
+        background: #ffffff;
+        color: #000000;
     }
 
     .app .counters {
@@ -84,7 +113,7 @@
         font-weight: bold;
         text-align: center;
         text-transform: uppercase;
-        margin: 3rem 0;
+        margin: 3rem 0 1rem;
     }
 
     .app .title .at {
