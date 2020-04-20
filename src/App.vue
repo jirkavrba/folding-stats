@@ -1,41 +1,42 @@
 <template>
     <div class="app">
-        <h1 class="title">Folding<span class="at">@</span>Home</h1>
+        <div :class="loading ? 'loading' : ''">
+            <h1 class="title">Folding<span class="at">@</span>Home</h1>
 
-        <div class="menu">
-            <button class="menu__item" @click="ungroup">Jednotlivé teamy</button>
-            <button class="menu__item" @click="group">Univerzity</button>
+            <div class="menu">
+                <button class="menu__item" @click="ungroup">Jednotlivé teamy</button>
+                <button class="menu__item" @click="group">Univerzity</button>
+            </div>
+            <div class="container">
+                <div class="row counters" v-if="grouped">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities"
+                         :key="index">
+                        <GroupCounter
+                                :name="university.name"
+                                :logo="university.logo"
+                                :color="university.color"
+                                :teams="university.teams"
+                                :count="university.count || 0"
+                                :loading="loading"
+                        />
+                    </div>
+                </div>
+                <div class="row counters" v-else>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in teams" :key="index">
+                        <Counter
+                                :id="team.id"
+                                :name="team.name"
+                                :logo="team.logo"
+                                :color="team.color"
+                                :count="team.count || 0"
+                                :loading="loading"
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
-
         <div class="container" v-if="loading">
             <Loading :progress="(this.loaded / this.teams.length) * 100"/>
-        </div>
-        <div class="container" :style="'opacity:' + (loading ? '0.1' : '1')">
-            <div class="row counters" v-if="grouped">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities"
-                     :key="index">
-                    <GroupCounter
-                            :name="university.name"
-                            :logo="university.logo"
-                            :color="university.color"
-                            :teams="university.teams"
-                            :count="university.count || 0"
-                            :loading="loading"
-                    />
-                </div>
-            </div>
-            <div class="row counters" v-else>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in teams" :key="index">
-                    <Counter
-                            :id="team.id"
-                            :name="team.name"
-                            :logo="team.logo"
-                            :color="team.color"
-                            :count="team.count || 0"
-                            :loading="loading"
-                    />
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -59,10 +60,12 @@
         methods: {
             group() {
                 this.grouped = true;
+                this.loading = false;
                 this.update()
             },
             ungroup() {
                 this.grouped = false;
+                this.loading = false;
                 this.update()
             },
             async update() {
@@ -72,47 +75,37 @@
                 const proxy = "https://corsanywhere.herokuapp.com/";
                 const url = proxy + "https://stats.foldingathome.org/api/team/";
 
-                if (this.grouped)
-                {
-                    for (let key in this.universities)
-                    {
+                if (this.grouped) {
+                    for (let key in this.universities) {
                         universities[key].count = 0;
 
-                        let count = 0;
-
-                        for (let team in universities[key].teams)
-                        {
-                            await fetch(url + universities[key].teams[team].id)
+                        for (let i = 0; i < universities[key].teams.length; i++) {
+                            await fetch(url + universities[key].teams[i].id)
                                 .then(response => response.json())
                                 .then(response => {
-                                    count += Number(response.credit)
+                                    universities[key].count += Number(response.credit)
                                 });
 
                             this.loaded++;
                         }
-
-                        universities[key].count = count.toLocaleString().replace(/,/g, " ");
                     }
 
                     // Sort the universities by their score
                     this.universities = this.universities.sort((a, b) => b.count - a.count);
-                }
-                else
-                {
-                    for (let team in this.teams)
-                    {
-                        await fetch(url + this.teams[team].id)
+                } else {
+                    for (let i = 0; i < this.teams.length; i++) {
+                        await fetch(url + this.teams[i].id)
                             .then(response => response.json())
                             .then(response => {
-                                this.teams[team].count = Number(response.credit)
+                                this.teams[i].count = Number(response.credit)
                             });
 
-                        this.loaded ++;
+                        this.loaded++;
                     }
-
-                    // Sort the universities by their score
-                    this.teams = this.teams.sort((a, b) => b.count - a.count);
                 }
+
+                // Sort the teams by their score
+                this.teams = this.teams.sort((a, b) => b.count - a.count);
 
                 this.loading = false
             }
@@ -133,6 +126,7 @@
         ),
         mounted() {
             this.update()
+            window.setInterval(() => this.update(), 2 * 60 * 1000);
         }
     }
 </script>
@@ -145,6 +139,10 @@
         flex-flow: column nowrap;
         justify-content: center;
         font-family: 'Unica One', monospace;
+    }
+
+    .app > div.loading {
+        filter: blur(5px)
     }
 
     .app .menu {

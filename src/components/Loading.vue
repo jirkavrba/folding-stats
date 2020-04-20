@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="loading">
         <div class="loading__wrapper">
             <div class="lds-roller">
                 <div></div>
@@ -28,6 +28,20 @@
 </script>
 
 <style scoped>
+    .loading {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.5);
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+    }
+
     .loading__wrapper {
         display: flex;
         flex-flow: row nowrap;
