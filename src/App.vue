@@ -7,7 +7,10 @@
             <button class="menu__item" @click="group">Univerzity</button>
         </div>
 
-        <div class="container">
+        <div class="container" v-if="loading">
+            <Loading :progress="(this.loaded / this.teams.length) * 100"/>
+        </div>
+        <div class="container" :style="'opacity:' + (loading ? '0.1' : '1')">
             <div class="row counters" v-if="grouped">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities"
                      :key="index">
@@ -16,6 +19,8 @@
                             :logo="university.logo"
                             :color="university.color"
                             :teams="university.teams"
+                            :count="university.count || 0"
+                            :loading="loading"
                     />
                 </div>
             </div>
@@ -26,6 +31,8 @@
                             :name="team.name"
                             :logo="team.logo"
                             :color="team.color"
+                            :count="team.count || 0"
+                            :loading="loading"
                     />
                 </div>
             </div>
@@ -34,6 +41,9 @@
 </template>
 
 <script>
+    // import Vue from 'vue';
+
+    import Loading from './components/Loading.vue'
     import Counter from './components/Counter.vue'
     import GroupCounter from './components/GroupCounter.vue'
 
@@ -42,28 +52,88 @@
     export default {
         name: 'App',
         components: {
+            Loading,
             Counter,
             GroupCounter
         },
         methods: {
             group() {
                 this.grouped = true;
+                this.update()
             },
             ungroup() {
                 this.grouped = false;
+                this.update()
+            },
+            async update() {
+                this.loading = true;
+                this.loaded = 0;
+
+                const proxy = "https://corsanywhere.herokuapp.com/";
+                const url = proxy + "https://stats.foldingathome.org/api/team/";
+
+                if (this.grouped)
+                {
+                    for (let key in this.universities)
+                    {
+                        universities[key].count = 0;
+
+                        let count = 0;
+
+                        for (let team in universities[key].teams)
+                        {
+                            await fetch(url + universities[key].teams[team].id)
+                                .then(response => response.json())
+                                .then(response => {
+                                    count += Number(response.credit)
+                                });
+
+                            this.loaded++;
+                        }
+
+                        universities[key].count = count.toLocaleString().replace(/,/g, " ");
+                    }
+
+                    // Sort the universities by their score
+                    this.universities = this.universities.sort((a, b) => b.count - a.count);
+                }
+                else
+                {
+                    for (let team in this.teams)
+                    {
+                        await fetch(url + this.teams[team].id)
+                            .then(response => response.json())
+                            .then(response => {
+                                this.teams[team].count = Number(response.credit)
+                            });
+
+                        this.loaded ++;
+                    }
+
+                    // Sort the universities by their score
+                    this.teams = this.teams.sort((a, b) => b.count - a.count);
+                }
+
+                this.loading = false
             }
         },
         data: () => ({
                 grouped: false,
+                loading: true,
+                loaded: 0,
                 universities: universities,
                 teams: universities.map(university => university.teams.map(team => ({
                     id: team.id,
                     name: team.name,
                     color: university.color,
-                    logo: university.logo
+                    logo: university.logo,
+                    count: 0
                 }))).flat()
             }
         ),
+        mounted() {
+            this.update()
+        }
     }
 </script>
 

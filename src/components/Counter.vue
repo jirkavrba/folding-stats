@@ -9,35 +9,14 @@
 <script>
     export default {
         name: "Counter",
-        data: () => ({
-            loading: true,
-            error: false,
-            count: 0
-        }),
         props: [
             "id",
             "name",
             "logo",
-            "color"
-        ],
-        mounted() {
-            this.update()
-            window.setInterval(this.update.bind(this), 60 * 1000)
-        },
-        methods: {
-            update() {
-                const proxy = "https://corsanywhere.herokuapp.com/";
-                const url = proxy + "https://stats.foldingathome.org/api/team/" + this.id
-
-                fetch(url)
-                    .then(response => response.json())
-                    .then(response => {
-                        this.loading = false
-                        this.count = response.credit.toLocaleString().replace(/,/g, " ")
-                    })
-                    .catch(() => this.error = true)
-            }
-        }
+            "count",
+            "color",
+            "loading"
+        ]
     }
 </script>
 
