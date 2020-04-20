@@ -9,6 +9,16 @@
                 <button class="menu__item" @click="group">Univerzity</button>
             </div>
             <div class="container">
+                <div class="row counters">
+                    <div class="col-xs-12">
+                        <div class="total__intro">České univerzity přispěly celkem</div>
+                        <h1 class="total">{{ total.toLocaleString('en-US').replace(/,/g, " ") }}</h1>
+                        <div class="total__intro">body</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="container">
                 <div class="row counters" v-if="grouped">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities"
                          :key="index">
@@ -72,6 +82,7 @@
             async update() {
                 this.loading = true;
                 this.loaded = 0;
+                this.total = 0;
 
                 const proxy = "https://corsanywhere.herokuapp.com/";
                 const url = proxy + "https://stats.foldingathome.org/api/team/";
@@ -84,7 +95,9 @@
                             await fetch(url + universities[key].teams[i].id)
                                 .then(response => response.json())
                                 .then(response => {
-                                    universities[key].count += Number(response.credit)
+                                    const score = Number(response.credit);
+                                    this.universities[key].count += score;
+                                    this.total += score;
                                 });
 
                             this.loaded++;
@@ -98,7 +111,9 @@
                         await fetch(url + this.teams[i].id)
                             .then(response => response.json())
                             .then(response => {
-                                this.teams[i].count = Number(response.credit)
+                                const score = Number(response.credit);
+                                this.teams[i].count = score;
+                                this.total += score;
                             });
 
                         this.loaded++;
@@ -115,6 +130,7 @@
                 grouped: false,
                 loading: true,
                 loaded: 0,
+                total: 0,
                 universities: universities,
                 teams: universities.map(university => university.teams.map(team => ({
                     id: team.id,
@@ -186,6 +202,26 @@
         text-decoration: none;
         font-weight: bold;
         color: #000000;
+    }
+
+    .app .divider {
+        color: #dddddd;
+        margin: 2rem 0;
+    }
+
+    .app .total__intro {
+        text-align: center;
+        margin: 1rem auto;
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: #999999;
+    }
+
+    .app .total {
+        text-align: center;
+        margin: 1rem auto;
+        font-size: 4rem;
+        text-transform: uppercase;
     }
 
     .app .bugs:hover, .app .bugs:focus {

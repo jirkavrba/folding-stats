@@ -66,7 +66,7 @@
     }
 
     .counter--group .counter__count {
-        font-size: 4rem;
+        font-size: 3rem;
         font-weight: bold;
         margin-top: 1rem;
     }
