@@ -11,6 +11,7 @@ const logos = {
     uhk: "https://imgur.com/6mX9i3s.png",
     mendelu: "https://imgur.com/FpgKLbV.png",
     vsb: "https://imgur.com/5DiXywa.png",
+    skas_fast: "https://imgur.com/XOB9dgW.png",
 }
 
 const colors = {
@@ -25,7 +26,8 @@ const colors = {
     slu: "#971e39",
     uhk: "#000000",
     mendelu: "#79BE15",
-    vsb: "#00a499"
+    vsb: "#00a499",
+    skas_fast: "#e4002b",
 }
 
 export default [
@@ -238,6 +240,18 @@ export default [
             {
                 id: 235930,
                 name: "IT4Innovations"
+            }
+        ]
+    },
+    {
+        name: "SKAS FAST",
+        logo: logos.skas_fast,
+        color: colors.skas_fast,
+        teams: [
+            {
+                id: 75339619,
+                name: "SKAS-fast",
+                type: "donor",
             }
         ]
     }

@@ -1,7 +1,8 @@
 <template>
     <div class="app">
         <div :class="loading ? 'loading' : ''">
-            <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">Návrhy a chyby</a>
+            <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">Návrhy a
+                chyby</a>
 
             <h1 class="title">Folding<span class="at">@</span>Home</h1>
             <div class="menu">
@@ -85,13 +86,22 @@
                 this.total = 0;
 
                 const proxy = "https://corsanywhere.herokuapp.com/";
-                const url = proxy + "https://stats.foldingathome.org/api/team/";
+                let url = proxy + "https://stats.foldingathome.org/api/team/";
 
                 if (this.grouped) {
                     for (let key in this.universities) {
                         universities[key].count = 0;
 
                         for (let i = 0; i < universities[key].teams.length; i++) {
+
+                            // Allow "teams" to be a single donor with the type property
+                            if (
+                                typeof universities[key].teams[i].type !== "undefined" &&
+                                universities[key].teams[i].type === 'donor'
+                            ) {
+                                url = url.replace('/team/', '/donor/')
+                            }
+
                             await fetch(url + universities[key].teams[i].id)
                                 .then(response => response.json())
                                 .then(response => {
@@ -108,6 +118,14 @@
                     this.universities = this.universities.sort((a, b) => b.count - a.count);
                 } else {
                     for (let i = 0; i < this.teams.length; i++) {
+                        // Allow "teams" to be a single donor with the type property
+                        if (
+                            typeof this.teams[i].type !== "undefined" &&
+                            this.teams[i].type === "donor"
+                        ) {
+                            url = url.replace('/team/', '/donor/')
+                        }
+
                         await fetch(url + this.teams[i].id)
                             .then(response => response.json())
                             .then(response => {
@@ -137,7 +155,8 @@
                     name: team.name,
                     color: university.color,
                     logo: university.logo,
-                    count: 0
+                    count: 0,
+                    type: typeof team.type !== "undefined" ? team.type : "team"
                 }))).flat()
             }
         ),
