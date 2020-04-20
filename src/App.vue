@@ -6,12 +6,12 @@
             <h1 class="title">Folding<span class="at">@</span>Home</h1>
             <div class="menu">
                 <button class="menu__item" @click="ungroup">Jednotlivé týmy</button>
-                <button class="menu__item" @click="group">Univerzity</button>
+                <button class="menu__item" @click="group">Akademické instituce</button>
             </div>
             <div class="container">
                 <div class="row counters">
                     <div class="col-xs-12">
-                        <div class="total__intro">České univerzity přispěly celkem</div>
+                        <div class="total__intro">České akademické instituce přispěly celkem</div>
                         <h1 class="total">{{ total.toLocaleString('en-US').replace(/,/g, " ") }}</h1>
                         <div class="total__intro">body</div>
                     </div>
