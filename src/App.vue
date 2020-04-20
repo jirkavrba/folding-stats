@@ -1,8 +1,9 @@
 <template>
     <div class="app">
         <div :class="loading ? 'loading' : ''">
-            <h1 class="title">Folding<span class="at">@</span>Home</h1>
+            <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">Návrhy a chyby</a>
 
+            <h1 class="title">Folding<span class="at">@</span>Home</h1>
             <div class="menu">
                 <button class="menu__item" @click="ungroup">Jednotlivé teamy</button>
                 <button class="menu__item" @click="group">Univerzity</button>
@@ -142,7 +143,7 @@
     }
 
     .app > div.loading {
-        filter: blur(5px)
+        /*filter: blur(5px)*/
     }
 
     .app .menu {
@@ -174,6 +175,21 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
+    }
+
+    .app .bugs {
+        display: block;
+        text-align: center;
+        font-size: 1.25rem;
+        margin: 1rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .app .bugs:hover, .app .bugs:focus {
+        color: #0099ff;
     }
 
     .app .title {
