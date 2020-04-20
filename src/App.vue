@@ -5,7 +5,7 @@
 
             <h1 class="title">Folding<span class="at">@</span>Home</h1>
             <div class="menu">
-                <button class="menu__item" @click="ungroup">Jednotlivé teamy</button>
+                <button class="menu__item" @click="ungroup">Jednotlivé týmy</button>
                 <button class="menu__item" @click="group">Univerzity</button>
             </div>
             <div class="container">
