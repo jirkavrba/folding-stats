@@ -12,6 +12,7 @@ const logos = {
     mendelu: "https://imgur.com/FpgKLbV.png",
     vsb: "https://imgur.com/5DiXywa.png",
     skas_fast: "https://imgur.com/XOB9dgW.png",
+    vslg: "https://imgur.com/oLND4t9.png",
 }
 
 const colors = {
@@ -28,6 +29,7 @@ const colors = {
     mendelu: "#79BE15",
     vsb: "#00a499",
     skas_fast: "#e4002b",
+    vslg: "#00AFF2",
 }
 
 export default [
@@ -244,6 +246,17 @@ export default [
             {
                 id: 235930,
                 name: "IT4Innovations"
+            }
+        ]
+    },
+    {
+        name: "VŠLG",
+        logo: logos.vslg,
+        color: colors.vslg,
+        teams: [
+            {
+                id: 243957,
+                name: "VSLG"
             }
         ]
     },
