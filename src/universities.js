@@ -162,6 +162,10 @@ export default [
             {
                 id: 242176,
                 name: "Tomas Bata University in Zlin",
+            },
+            {
+                id: 239452,
+                name: "K.UTB",
             }
         ]
     },
