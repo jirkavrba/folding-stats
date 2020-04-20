@@ -243,16 +243,16 @@ export default [
             }
         ]
     },
-    {
-        name: "SKAS FAST",
-        logo: logos.skas_fast,
-        color: colors.skas_fast,
-        teams: [
-            {
-                id: 75339619,
-                name: "SKAS-fast",
-                type: "donor",
-            }
-        ]
-    }
+    // {
+    //     name: "SKAS FAST",
+    //     logo: logos.skas_fast,
+    //     color: colors.skas_fast,
+    //     teams: [
+    //         {
+    //             id: 75339619,
+    //             name: "SKAS-fast",
+    //             type: "donor",
+    //         }
+    //     ]
+    // }
 ];
