@@ -24,7 +24,25 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - name: Install dependencies
       run: npm ci
+
     - name: Build the application
       run: npm run build
+
+#    - name: Zip the dist folder into single archive
+#      uses: montudor/action-zip@v0.1.0
+#      with:
+#        args: zip -qq -r ./release.zip ./dist
+#
+    - name: Deploy the release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
