@@ -117,21 +117,25 @@
                                 url = url.replace('/team/', '/donor/')
                             }
 
-                            await fetch(url + universities[key].teams[i].id)
+                            fetch(url + universities[key].teams[i].id)
                                 .then(response => response.json())
                                 .then(response => {
                                     const score = Number(response.credit);
                                     this.universities[key].count += score;
                                     this.total += score;
-                                });
+                                    this.loaded++;
 
-                            this.loaded++;
+                                    if (this.loaded === this.teams.length)
+                                    {
+                                        // Sort the universities by their score
+                                        this.$data._universities = this.universities.slice();
+                                        this.$data._universities.sort((a, b) => b.count - a.count);
+
+                                        this.loading = false
+                                    }
+                                });
                         }
                     }
-
-                    // Sort the universities by their score
-                    this.$data._universities = this.universities.slice();
-                    this.$data._universities.sort((a, b) => b.count - a.count);
 
                 } else {
                     for (let i = 0; i < this.teams.length; i++) {
@@ -143,23 +147,25 @@
                             url = url.replace('/team/', '/donor/')
                         }
 
-                        await fetch(url + this.teams[i].id)
+                        fetch(url + this.teams[i].id)
                             .then(response => response.json())
                             .then(response => {
                                 const score = Number(response.credit);
                                 this.teams[i].count = score;
                                 this.total += score;
-                            });
+                                this.loaded++;
 
-                        this.loaded++;
+                                if (this.loaded === this.teams.length)
+                                {
+                                    // Sort the teams by their score
+                                    this.$data._teams = this.teams.slice()
+                                    this.$data._teams.sort((a, b) => b.count - a.count);
+
+                                    this.loading = false;
+                                }
+                            });
                     }
                 }
-
-                // Sort the teams by their score
-                this.$data._teams = this.teams.slice()
-                this.$data._teams.sort((a, b) => b.count - a.count);
-
-                this.loading = false
             }
         },
         data: () => ({
