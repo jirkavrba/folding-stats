@@ -30,15 +30,16 @@
 <style scoped>
     .loading {
         display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
         background: rgba(255, 255, 255, 0.5);
         position: fixed;
         left: 0;
         top: 0;
         width: 100vw;
         height: 100vh;
+        padding: 2rem;
         z-index: 10000;
     }
 

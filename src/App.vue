@@ -166,7 +166,7 @@
         ),
         mounted() {
             this.update()
-            window.setInterval(() => this.update(), 2 * 60 * 1000);
+            window.setInterval(() => this.update(), 5 * 60 * 1000);
         }
     }
 </script>
@@ -182,7 +182,7 @@
     }
 
     .app > div.loading {
-        filter: blur(5px)
+        filter: grayscale(100%)
     }
 
     .app .menu {
