@@ -41,6 +41,7 @@
                                 :logo="team.logo"
                                 :color="team.color"
                                 :count="team.count || 0"
+                                :type="team.type || 'team'"
                                 :loading="loading"
                         />
                     </div>

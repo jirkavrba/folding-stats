@@ -1,5 +1,5 @@
 <template>
-    <a :href="'https://stats.foldingathome.org/team/' + id" target="_blank" class="counter" :style="'outline-color:' + color">
+    <a :href="'https://stats.foldingathome.org/' + type + '/' + id" target="_blank" class="counter" :style="'outline-color:' + color">
         <img :src="logo" alt="Logo" class="counter__logo">
         <h1 class="counter__name">{{ name }}</h1>
         <div :style="'color:' + color + ';' + (loading ? 'opacity: 0.2' : '')" class="counter__count">
@@ -17,7 +17,8 @@
             "logo",
             "count",
             "color",
-            "loading"
+            "loading",
+            "type"
         ]
     }
 </script>
