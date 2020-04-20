@@ -21,7 +21,7 @@
             <hr class="divider">
             <div class="container">
                 <div class="row counters" v-if="grouped">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in universities"
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in $data._universities"
                          :key="index">
                         <GroupCounter
                                 :name="university.name"
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="row counters" v-else>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in teams" :key="index">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in $data._teams" :key="index">
                         <Counter
                                 :id="team.id"
                                 :name="team.name"
@@ -55,8 +55,6 @@
 </template>
 
 <script>
-    // import Vue from 'vue';
-
     import Loading from './components/Loading.vue'
     import Counter from './components/Counter.vue'
     import GroupCounter from './components/GroupCounter.vue'
@@ -116,7 +114,9 @@
                     }
 
                     // Sort the universities by their score
-                    this.universities = this.universities.sort((a, b) => b.count - a.count);
+                    this.$data._universities = this.universities.slice();
+                    this.$data._universities.sort((a, b) => b.count - a.count);
+
                 } else {
                     for (let i = 0; i < this.teams.length; i++) {
                         // Allow "teams" to be a single donor with the type property
@@ -140,7 +140,8 @@
                 }
 
                 // Sort the teams by their score
-                this.teams = this.teams.sort((a, b) => b.count - a.count);
+                this.$data._teams = this.teams.slice()
+                this.$data._teams.sort((a, b) => b.count - a.count);
 
                 this.loading = false
             }
@@ -150,6 +151,8 @@
                 loading: true,
                 loaded: 0,
                 total: 0,
+                _universities: [],
+                _teams: [],
                 universities: universities,
                 teams: universities.map(university => university.teams.map(team => ({
                     id: team.id,
@@ -158,12 +161,12 @@
                     logo: university.logo,
                     count: 0,
                     type: typeof team.type !== "undefined" ? team.type : "team"
-                }))).flat()
+                }))).flat(),
             }
         ),
         mounted() {
             this.update()
-            window.setInterval(() => this.update(), 2 * 60 * 1000);
+            window.setInterval(() => this.update(), 20 * 1000);
         }
     }
 </script>
