@@ -1,20 +1,22 @@
 <template>
     <div class="app">
+        <LanguageSwitch/>
         <div :class="loading ? 'loading' : ''">
-            <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">Návrhy a
-                chyby</a>
+            <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">
+                {{ $t('issues') }}
+            </a>
 
             <h1 class="title">Folding<span class="at">@</span>Home</h1>
             <div class="menu">
-                <button class="menu__item" @click="ungroup">Jednotlivé týmy</button>
-                <button class="menu__item" @click="group">Akademické instituce</button>
+                <button class="menu__item" @click="ungroup">{{ $t('teams') }}</button>
+                <button class="menu__item" @click="group">{{ $t('institutions') }}</button>
             </div>
             <div class="container">
                 <div class="row counters">
                     <div class="col-xs-12">
-                        <div class="total__intro">České akademické instituce přispěly celkem</div>
+                        <div class="total__intro">{{ $t('total') }}</div>
                         <h1 class="total">{{ total.toLocaleString('en-US').replace(/,/g, " ") }}</h1>
-                        <div class="total__intro">body</div>
+                        <div class="total__intro">{{ $t('points') }}</div>
                     </div>
                 </div>
             </div>
@@ -55,18 +57,32 @@
 </template>
 
 <script>
-    import Loading from './components/Loading.vue'
-    import Counter from './components/Counter.vue'
-    import GroupCounter from './components/GroupCounter.vue'
+    import Vue from 'vue';
+    import VueI18n from 'vue-i18n';
 
+    Vue.use(VueI18n)
+
+    import Loading from './components/Loading.vue';
+    import Counter from './components/Counter.vue';
+    import GroupCounter from './components/GroupCounter.vue';
+    import LanguageSwitch from "./components/LanguageSwitch";
+
+    import messages from "./messages";
     import universities from "./universities";
+
+    const i18n = new VueI18n({
+        locale: "cz",
+        messages: messages
+    })
 
     export default {
         name: 'App',
+        i18n: i18n,
         components: {
             Loading,
             Counter,
-            GroupCounter
+            GroupCounter,
+            LanguageSwitch,
         },
         methods: {
             group() {
