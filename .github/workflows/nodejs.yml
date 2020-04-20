@@ -37,8 +37,10 @@ jobs:
         args: zip -qq -r ./release.zip ./dist
 
     - name: Get current time
-      uses: gerred/actions/current-time@master
-      id: current-time
+        uses: srfrnk/current-time@master
+        id: current-time
+        with:
+          format: YYYYMMDDHHmmss
 
     - name: Create Release
       id: create_release
