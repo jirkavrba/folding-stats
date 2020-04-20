@@ -31,18 +31,16 @@ jobs:
     - name: Build the application
       run: npm run build
 
-#    - name: Zip the dist folder into single archive
-#      uses: montudor/action-zip@v0.1.0
-#      with:
-#        args: zip -qq -r ./release.zip ./dist
-#
-    - name: Deploy the release
-      id: create_release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+    - name: Zip the dist folder into single archive
+      uses: montudor/action-zip@v0.1.0
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
+        args: zip -qq -r ./release.zip ./dist
+
+    - name: Deploy the built release to github
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./release.zip
+        asset_name: Latest release
+        tag: ${{ github.ref }}
+        overwrite: true
