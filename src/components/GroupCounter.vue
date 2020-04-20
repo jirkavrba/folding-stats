@@ -3,7 +3,9 @@
         <img :src="logo" alt="Logo" class="counter__logo">
         <h1 class="counter__name">{{ name }}</h1>
         <h2 class="counter__description">{{ description }}</h2>
-        <div :style="'color:' + color" class="counter__count">{{ count }}</div>
+        <div :style="'color:' + color" class="counter__count">
+            {{ count.toLocaleString("en-US").replace(/,/g, " ") }}
+        </div>
     </div>
 </template>
 

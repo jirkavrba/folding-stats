@@ -2,7 +2,9 @@
     <a :href="'https://stats.foldingathome.org/team/' + id" target="_blank" class="counter" :style="'outline-color:' + color">
         <img :src="logo" alt="Logo" class="counter__logo">
         <h1 class="counter__name">{{ name }}</h1>
-        <div :style="'color:' + color + ';' + (loading ? 'opacity: 0.2' : '')" class="counter__count">{{ count }}</div>
+        <div :style="'color:' + color + ';' + (loading ? 'opacity: 0.2' : '')" class="counter__count">
+            {{ count.toLocaleString("en-US").replace(/,/g, " ") }}
+        </div>
     </a>
 </template>
 

@@ -10,6 +10,7 @@ const logos = {
     slu: "https://imgur.com/B8DDO0H.png",
     uhk: "https://imgur.com/6mX9i3s.png",
     mendelu: "https://imgur.com/FpgKLbV.png",
+    vsb: "https://imgur.com/5DiXywa.png",
 }
 
 const colors = {
@@ -24,6 +25,7 @@ const colors = {
     slu: "#971e39",
     uhk: "#000000",
     mendelu: "#79BE15",
+    vsb: "#00a499"
 }
 
 export default [
@@ -221,6 +223,21 @@ export default [
             {
                 id: 256262,
                 name: "MENDELU_POMAHA",
+            }
+        ]
+    },
+    {
+        name: "VŠB",
+        logo: logos.vsb,
+        color: colors.vsb,
+        teams: [
+            {
+                id: 256071,
+                name: "Esport VSB-TUO"
+            },
+            {
+                id: 235930,
+                name: "IT4Innovations"
             }
         ]
     }
