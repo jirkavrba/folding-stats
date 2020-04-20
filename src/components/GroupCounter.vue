@@ -1,10 +1,10 @@
 <template>
-    <a :href="'https://stats.foldingathome.org/team/' + id" target="_blank" class="counter" :style="'outline-color:' + color">
+    <div class="counter--group">
         <img :src="logo" alt="Logo" class="counter__logo">
         <h1 class="counter__name">{{ name }}</h1>
         <h2 class="counter__description">{{ description }}</h2>
         <div :style="'color:' + color + ';' + (loading ? 'opacity: 0.2' : '')" class="counter__count">{{ count }}</div>
-    </a>
+    </div>
 </template>
 
 <script>
@@ -57,7 +57,7 @@
 </script>
 
 <style>
-    .counter {
+    .counter--group {
         box-sizing: border-box;
         display: flex;
         flex-flow: column nowrap;
@@ -68,7 +68,7 @@
         text-decoration: none;
     }
 
-    .counter .counter__logo
+    .counter--group .counter__logo
     {
         width: 64px;
         height: 64px;
@@ -76,14 +76,14 @@
         margin-bottom: 1rem;
     }
 
-    .counter .counter__name {
+    .counter--group .counter__name {
         color: #000000;
         font-size: 2.5rem;
         text-transform: uppercase;
         text-align: center;
     }
 
-    .counter .counter__description {
+    .counter--group .counter__description {
         color: #aaaaaa;
         margin: 0.5rem 0;
         font-size: 2rem;
@@ -91,7 +91,7 @@
         text-align: center;
     }
 
-    .counter .counter__count {
+    .counter--group .counter__count {
         font-size: 4rem;
         font-weight: bold;
         margin-top: 1rem;
