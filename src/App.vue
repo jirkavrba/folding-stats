@@ -166,7 +166,7 @@
         ),
         mounted() {
             this.update()
-            window.setInterval(() => this.update(), 20 * 1000);
+            window.setInterval(() => this.update(), 2 * 60 * 1000);
         }
     }
 </script>
