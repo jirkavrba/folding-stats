@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@patternfly/patternfly": "^2.71.5",
     "core-js": "^3.6.4",
     "vue": "^2.6.11"
   },
