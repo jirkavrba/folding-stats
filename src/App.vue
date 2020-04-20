@@ -143,7 +143,7 @@
     }
 
     .app > div.loading {
-        /*filter: blur(5px)*/
+        filter: blur(5px)
     }
 
     .app .menu {
