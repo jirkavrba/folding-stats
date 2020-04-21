@@ -1,0 +1,53 @@
+image: gitlab.fit.cvut.cz:5000/ict/alpine-docker-images/ci:3.11
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - .npm/
+
+build:
+  stage: build
+  before_script:
+    - apk add nodejs npm
+    - npm ci --cache .npm
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 month
+
+# Deploy to folding.fit.cvut.cz using FIT Pages.
+deploy:dev:
+  stage: deploy
+  only:
+    variables:
+      - $CI_PROJECT_NAMESPACE == "ict"  # don't run on forks
+  except:
+    - production
+  cache: {}
+  script:
+    - rm -Rf public
+    - mv dist public
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    url: https://folding.fit.cvut.cz/@${CI_COMMIT_REF_NAME}/
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 day
+
+deploy:production:
+  extends: deploy:dev
+  only:
+    refs:
+      - production
+  except: []
+  environment:
+    name: production
+    url: https://folding.fit.cvut.cz/
+  artifacts:
+    expire_in: 1 month
