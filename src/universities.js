@@ -13,6 +13,7 @@ const logos = {
     vsb: "https://imgur.com/5DiXywa.png",
     skas_fast: "https://imgur.com/XOB9dgW.png",
     vslg: "https://imgur.com/oLND4t9.png",
+    ujep: "https://imgur.com/5ZZueaR.png",
 }
 
 const colors = {
@@ -30,6 +31,7 @@ const colors = {
     vsb: "#00a499",
     skas_fast: "#e4002b",
     vslg: "#00AFF2",
+    ujep: "#231f20",
 }
 
 export default [
@@ -257,6 +259,17 @@ export default [
             {
                 id: 243957,
                 name: "VSLG"
+            }
+        ]
+    },
+    {
+        name: "UJEP",
+        logo: logos.ujep,
+        color: colors.ujep,
+        teams: [
+            {
+                id: 250682,
+                name: "FZP_UJEP"
             }
         ]
     },
