@@ -53,6 +53,10 @@
         <div class="container" v-if="loading">
             <Loading :progress="(this.loaded / this.teams.length) * 100"/>
         </div>
+        <footer>
+            &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt <br>
+            Vytvořili studenti <b>FIT ČVUT</b>
+        </footer>
     </div>
 </template>
 
@@ -288,5 +292,17 @@
     .app .counters {
         display: flex;
         flex-flow: row wrap;
+    }
+
+    .app footer {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 1.25rem;
+        color: #aaaaaa;
+        padding: 1rem 0;
+    }
+
+    .app footer b {
+        color: #666666;
     }
 </style>
