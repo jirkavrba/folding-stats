@@ -54,7 +54,7 @@
             <Loading :progress="(this.loaded / this.teams.length) * 100"/>
         </div>
         <footer>
-            &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt <br>
+            &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž<br>
             Vytvořili studenti <b>FIT ČVUT</b>
         </footer>
     </div>
