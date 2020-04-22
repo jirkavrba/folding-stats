@@ -1,12 +1,13 @@
 <template>
     <div class="app">
-        <LanguageSwitch />
+        <LanguageSwitch/>
         <div :class="loading ? 'loading' : ''">
             <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">
                 {{ $t('issues') }}
             </a>
 
             <h1 class="title">Folding<span class="at">@</span>Home</h1>
+            <div class="start" v-html="$t('start_folding')"></div>
             <div class="menu">
                 <button class="menu__item" @click="ungroup">{{ $t('teams') }}</button>
                 <button class="menu__item" @click="group">{{ $t('institutions') }}</button>
@@ -23,7 +24,8 @@
             <hr class="divider">
             <div class="container">
                 <div class="row counters" v-if="grouped">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(university, index) in $data._universities"
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4"
+                         v-for="(university, index) in $data._universities"
                          :key="index">
                         <GroupCounter
                                 :name="university.name"
@@ -36,7 +38,8 @@
                     </div>
                 </div>
                 <div class="row counters" v-else>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in $data._teams" :key="index">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" v-for="(team, index) in $data._teams"
+                         :key="index">
                         <Counter
                                 :id="team.id"
                                 :name="team.name"
@@ -51,11 +54,14 @@
             </div>
         </div>
         <div class="container" v-if="loading">
-            <Loading :progress="(this.loaded / this.teams.length) * 100"/>
+            <Loading :progress="(this.loaded / Math.max(1, this.teams.length)) * 100"/>
         </div>
         <footer>
+            <div class="join">
+                <span v-html="$t('addition-request')"></span>
+            </div>
             &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž<br>
-            Vytvořili studenti <b>FIT ČVUT</b>
+            <span v-html="$t('attribution')"></span>
         </footer>
     </div>
 </template>
@@ -72,7 +78,6 @@
     import LanguageSwitch from "./components/LanguageSwitch";
 
     import messages from "./messages";
-    import universities from "./universities";
 
     const userLang = localStorage.lang
         || (navigator.languages
@@ -105,29 +110,50 @@
                 this.loading = false;
                 this.update()
             },
+            async fetchUniversities() {
+                const api = 'https://folding.vrba.dev/api/institutions';
+
+                const response = await fetch(api).then(response => response.json());
+                const universities = response.institutions;
+
+                this.universities = universities;
+                this.teams = universities.map(university => university.teams.map(team => ({
+                    id: team.id,
+                    name: team.name,
+                    color: university.color,
+                    logo: university.logo,
+                    count: 0,
+                    type: typeof team.type !== "undefined" ? team.type : "team"
+                }))).flat();
+            },
             async update() {
                 this.loading = true;
                 this.loaded = 0;
                 this.total = 0;
+
+                if (this.universities.length === 0)
+                {
+                    await this.fetchUniversities();
+                }
 
                 const proxy = "https://corsanywhere.herokuapp.com/";
                 let url = proxy + "https://stats.foldingathome.org/api/team/";
 
                 if (this.grouped) {
                     for (let key in this.universities) {
-                        universities[key].count = 0;
+                        this.universities[key].count = 0;
 
-                        for (let i = 0; i < universities[key].teams.length; i++) {
+                        for (let i = 0; i < this.universities[key].teams.length; i++) {
 
                             // Allow "teams" to be a single donor with the type property
                             if (
-                                typeof universities[key].teams[i].type !== "undefined" &&
-                                universities[key].teams[i].type === 'donor'
+                                typeof this.universities[key].teams[i].type !== "undefined" &&
+                                this.universities[key].teams[i].type === 'donor'
                             ) {
                                 url = url.replace('/team/', '/donor/')
                             }
 
-                            fetch(url + universities[key].teams[i].id)
+                            fetch(url + this.universities[key].teams[i].id)
                                 .then(response => response.json())
                                 .then(response => {
                                     const score = Number(response.credit);
@@ -135,8 +161,7 @@
                                     this.total += score;
                                     this.loaded++;
 
-                                    if (this.loaded === this.teams.length)
-                                    {
+                                    if (this.loaded === this.teams.length) {
                                         // Sort the universities by their score
                                         this.$data._universities = this.universities.slice();
                                         this.$data._universities.sort((a, b) => b.count - a.count);
@@ -165,8 +190,7 @@
                                 this.total += score;
                                 this.loaded++;
 
-                                if (this.loaded === this.teams.length)
-                                {
+                                if (this.loaded === this.teams.length) {
                                     // Sort the teams by their score
                                     this.$data._teams = this.teams.slice()
                                     this.$data._teams.sort((a, b) => b.count - a.count);
@@ -185,15 +209,8 @@
                 total: 0,
                 _universities: [],
                 _teams: [],
-                universities: universities,
-                teams: universities.map(university => university.teams.map(team => ({
-                    id: team.id,
-                    name: team.name,
-                    color: university.color,
-                    logo: university.logo,
-                    count: 0,
-                    type: typeof team.type !== "undefined" ? team.type : "team"
-                }))).flat(),
+                universities: [],
+                teams: [],
             }
         ),
         mounted() {
@@ -251,8 +268,8 @@
     .app .bugs {
         display: block;
         text-align: center;
-        font-size: 1.25rem;
-        margin: 1rem;
+        font-size: 1rem;
+        margin: 0.5rem;
         text-transform: uppercase;
         text-decoration: none;
         font-weight: bold;
@@ -288,7 +305,7 @@
         font-weight: bold;
         text-align: center;
         text-transform: uppercase;
-        margin: 3rem 0 1rem;
+        margin: 1rem 0 1rem;
     }
 
     .app .title .at {
@@ -310,5 +327,28 @@
 
     .app footer b {
         color: #666666;
+    }
+
+    .app .join {
+        color: #888888;
+        margin-bottom: 1rem;
+    }
+
+    .app .join a {
+        color: #000000;
+        text-decoration: none;
+    }
+
+    .app .start {
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .app .start a {
+        display: inline-block;
+        margin-top: 0.4rem;
+        color: #ff0000;
+        text-decoration: none;
     }
 </style>
