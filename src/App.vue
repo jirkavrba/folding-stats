@@ -1,6 +1,6 @@
 <template>
     <div class="app">
-        <LanguageSwitch/>
+        <LanguageSwitch />
         <div :class="loading ? 'loading' : ''">
             <a class="bugs" href="https://github.com/jirkavrba/folding-stats/issues/new" target="_blank">
                 {{ $t('issues') }}
@@ -74,8 +74,14 @@
     import messages from "./messages";
     import universities from "./universities";
 
+    const userLang = localStorage.lang
+        || (navigator.languages
+            ? navigator.languages[0]
+            : (navigator.language || navigator.userLanguage));
+
     const i18n = new VueI18n({
-        locale: "cz",
+        locale: userLang?.substring(0, 2),
+        fallbackLocale: "en",
         messages: messages
     })
 
