@@ -1,5 +1,5 @@
 export default {
-    cz: {
+    cs: {
         issues: "Návrhy a chyby",
         teams: "Jednotlivé týmy",
         institutions: "Akademické instituce",
