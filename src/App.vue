@@ -58,7 +58,7 @@
         </div>
         <footer>
             <div class="join">
-                <span v-html="$t('addition-request')"></span>
+                <span v-html="$t('addition_request')"></span>
             </div>
             &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž<br>
             <span v-html="$t('attribution')"></span>
