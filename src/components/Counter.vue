@@ -1,25 +1,29 @@
 <template>
-    <a :href="'https://stats.foldingathome.org/' + type + '/' + id" target="_blank" class="counter" :style="'outline-color:' + color">
-        <img :src="logo" alt="Logo" class="counter__logo">
-        <h1 class="counter__name">{{ name }}</h1>
-        <div :style="'color:' + color + ';' + (loading ? 'opacity: 0.2' : '')" class="counter__count">
-            {{ count.toLocaleString("en-US").replace(/,/g, " ") }}
+    <div :class=" team ? 'counter counter--clickable' : 'counter'" :style="'outline-color:' + color">
+        <img :src="logo" :alt="name" class="counter__logo">
+        <div class="counter__name">{{ name }}</div>
+        <div class="counter__count" :style="'color:' + color">
+            {{ loading ? $t('loading') : formattedCount }}
         </div>
-    </a>
+    </div>
 </template>
 
 <script>
     export default {
         name: "Counter",
         props: [
-            "id",
             "name",
-            "logo",
+            "team",
             "count",
+            "logo",
             "color",
             "loading",
-            "type"
-        ]
+        ],
+        computed: {
+            formattedCount() {
+                return this.count.toLocaleString('en-US').replace(/,/g, " ")
+            }
+        }
     }
 </script>
 
@@ -50,15 +54,15 @@
         text-align: center;
     }
 
-    .counter:hover, .counter:focus {
-        /*background: #eeeeee;*/
+    .counter.counter--clickable:hover, .counter.counter--clickable:focus {
         outline-style: solid;
-        outline-width: 5px;
+        outline-width: 2px;
     }
 
     .counter .counter__count {
         font-size: 3rem;
         font-weight: bold;
         margin-top: 1rem;
+        text-transform: uppercase;
     }
 </style>

@@ -12,7 +12,7 @@
                 <div></div>
             </div>
         </div>
-        <div class="loading__progress">
+        <div class="loading__progress" v-if="progress">
             {{ Math.floor(progress) }}%
         </div>
     </div>
@@ -20,10 +20,8 @@
 
 <script>
     export default {
-        name: "Loading",
-        "props": [
-            "progress"
-        ]
+        name: "LoadingOverlay",
+        "props": [ "progress" ]
     }
 </script>
 
@@ -31,15 +29,14 @@
     .loading {
         display: flex;
         flex-flow: row nowrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        background: rgba(255, 255, 255, 0.5);
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.75);
         position: fixed;
         left: 0;
         top: 0;
         width: 100vw;
         height: 100vh;
-        padding: 2rem;
         z-index: 10000;
     }
 
