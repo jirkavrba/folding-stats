@@ -34,6 +34,11 @@
                     ]
                 },
                 {
+                    elements: {
+                        line: {
+                            tension: 0.2
+                        }
+                    },
                     legend: {
                         display: false,
                     },
