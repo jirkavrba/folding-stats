@@ -27,7 +27,7 @@ const messages = {
         attribution: "Project created by students of the <b>FIT CTU</b>",
         start_folding: "Start folding with us today!<br> <a href='https://foldingathome.org/start-folding/' target='_blank'>More info</a>",
         addition_request: "If you would like to add your institution/team to the database, " +
-            "please create an issue on <a href='https://www.github.com/jirkavrba/folding-stats/issues/new'>githubu</a>",
+            "please create an issue on <a href='https://www.github.com/jirkavrba/folding-stats/issues/new'>github</a>",
         loading: "Loading...",
         back: "Return ",
         view_at_folding: "view at folding@home"
