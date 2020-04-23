@@ -21,8 +21,8 @@ const messages = {
     en: {
         issues: "Bugs and suggestions",
         teams: "Individual teams",
-        institutions: "Academical institutions",
-        total: "Czech academical institutions have contributed a total of",
+        institutions: "Academic institutions",
+        total: "Czech academic institutions have contributed a total of",
         points: "points",
         attribution: "Project created by students of the <b>FIT CTU</b>",
         start_folding: "Start folding with us today!<br> <a href='https://foldingathome.org/start-folding/' target='_blank'>More info</a>",
