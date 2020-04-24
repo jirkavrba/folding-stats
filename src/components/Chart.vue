@@ -15,7 +15,7 @@
                 date.setTime(item.datetime * 1000)
 
                 return date.getDate() + ". " +
-                    date.getMonth() + ". " +
+                    (date.getMonth() + 1) + ". " +
                     date.getHours().toString().padStart(2, "0") + ":" +
                     date.getMinutes().toString().padStart(2, "0")
             })
