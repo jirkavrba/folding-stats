@@ -16,7 +16,8 @@ const messages = {
             "vytvořte prosím issue na <a href='https://www.github.com/jirkavrba/folding-stats/issues/new'>githubu</a>",
         loading: "Načítání...",
         back: "Zpět na výpis",
-        view_at_folding: "Zobrazit na folding@home"
+        view_at_folding: "Zobrazit na folding@home",
+        toggle_chart: "Přepnout graf (celkové skore / přírůstek za časový interval)"
 },
     en: {
         issues: "Bugs and suggestions",
@@ -30,7 +31,8 @@ const messages = {
             "please create an issue on <a href='https://www.github.com/jirkavrba/folding-stats/issues/new'>github</a>",
         loading: "Loading...",
         back: "Return ",
-        view_at_folding: "view at folding@home"
+        view_at_folding: "view at folding@home",
+        toggle_chart: "Toggle the chart type (total score / increase within time interval)"
     }
 }
 

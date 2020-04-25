@@ -18,7 +18,10 @@
                 <h1 class="title">{{ this.details.name }}</h1>
             </div>
             <div class="col-xs-12">
-                <Chart :data="this.details.history" :color="this.details.color" :name="this.details.name"/>
+                <span class="toggle" @click="this.toggleDailyIncrease">{{ $t('toggle_chart') }}</span>
+            </div>
+            <div class="col-xs-12">
+                <Chart :data="this.details.history" :color="this.details.color" :name="this.details.name" :type="this.dailyIncrease ? 'increase' : 'total'"/>
             </div>
         </div>
 
@@ -34,6 +37,7 @@
         data: () => ({
             details: null,
             loading: true,
+            dailyIncrease: false,
         }),
         methods: {
             async updateInfo() {
@@ -45,6 +49,9 @@
 
                 this.loading = false;
                 this.details = this.$store.state.teamDetails[this.$route.params.id];
+            },
+            toggleDailyIncrease() {
+                this.dailyIncrease = !this.dailyIncrease
             }
         },
         watch: {
@@ -93,5 +100,15 @@
         .links {
             flex-flow: column nowrap;
         }
+    }
+
+    .toggle {
+        display: block;
+        text-align: center;
+        margin: 1rem auto;
+        padding-bottom: 1rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        color: #ff0000;
     }
 </style>
