@@ -111,6 +111,10 @@ const store = new Vuex.Store({
                 institution.loaded = true;
             }
 
+            const sorted = context.state.institutions.sort((a, b) => b.count - a.count);
+
+            context.commit("updateInstitutions", sorted);
+
             context.commit("stopLoading")
         },
         async loadInstitutions(context) {
