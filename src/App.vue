@@ -6,6 +6,9 @@
         <h1 class="title">Folding<span class="at">@</span>Home</h1>
         <div class="start" v-html="$t('start_folding')"></div>
         <div class="menu">
+            <router-link to="/top5">
+                <button class="menu__item">Top 5</button>
+            </router-link>
             <router-link to="/teams">
                 <button class="menu__item">{{ $t('teams') }}</button>
             </router-link>
@@ -31,7 +34,7 @@
             <div class="join">
                 <span v-html="$t('addition_request')"></span>
             </div>
-            &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž<br>
+            &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž, Ondřej Štorc<br>
             <span v-html="$t('attribution')"></span>
         </footer>
         <LoadingOverlay v-if="this.$store.state.loading" :progress="this.$store.state.loadingProgress"/>
