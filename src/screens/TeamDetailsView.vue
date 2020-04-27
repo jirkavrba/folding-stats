@@ -21,18 +21,21 @@
                 <span class="toggle" @click="this.toggleDailyIncrease">{{ $t('toggle_chart') }}</span>
             </div>
             <div class="col-xs-12">
-                <Chart :data="this.details.history" :color="this.details.color" :name="this.details.name" :type="this.dailyIncrease ? 'increase' : 'total'"/>
+                <IncrementChart :data="this.details.history" :color="this.details.color" :name="this.details.name" v-if="this.dailyIncrease"/>
+                <TotalChart :data="this.details.history" :color="this.details.color" :name="this.details.name" v-else/>
             </div>
         </div>
 
     </div>
 </template>
 <script>
-    import Chart from '@/components/Chart';
+    import TotalChart from '@/components/TotalChart';
+    import IncrementChart from '@/components/IncrementChart';
 
     export default {
         components: {
-            Chart
+            TotalChart,
+            IncrementChart
         },
         data: () => ({
             details: null,

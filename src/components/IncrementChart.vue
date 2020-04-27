@@ -72,19 +72,6 @@
             }
             ,
             computeDataSet() {
-                if (this.type === "total") {
-                    const labels = this.data.map(item => {
-                        const date = new Date();
-                        date.setTime(item.datetime * 1000)
-
-                        return this.formatDate(date);
-                    });
-
-                    const data = this.data.map(item => item.score);
-
-                    return {data, labels};
-                }
-
                 const labels = [];
                 const data = [];
 
