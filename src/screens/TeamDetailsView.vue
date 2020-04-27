@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="typeof this.details !== 'undefined' && this.details !== null">
         <div class="links">
             <router-link to="/teams" class="link">
                 &leftarrow; {{ $t('back') }}
@@ -40,11 +40,12 @@
             dailyIncrease: false,
         }),
         methods: {
-            async updateInfo() {
-                const loaded = await this.$store.dispatch('loadTeamDetails', this.$route.params.id)
+            updateInfo() {
+                const loaded = this.$store.state.teamDetails[this.$route.params.id] !== undefined
 
                 if (!loaded) {
-                    await this.$router.replace("/teams");
+                    this.$router.replace("/teams");
+                    return;
                 }
 
                 this.loading = false;

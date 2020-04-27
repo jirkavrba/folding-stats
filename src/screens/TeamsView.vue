@@ -11,6 +11,7 @@
                             :count="team.count"
                             :color="team.color"
                             :loading="!team.loaded"
+                            :details="$store.state.teamDetails[team.id]"
                     />
                 </router-link>
             </div>

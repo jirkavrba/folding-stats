@@ -79,6 +79,7 @@ const store = new Vuex.Store({
 
                             const progress = (++loaded / Math.max(needsLoad, 1)) * 100;
 
+                            context.commit('startLoading');
                             context.commit('setLoadingProgress', progress);
                             context.commit("updateTotal", total);
 
@@ -91,6 +92,8 @@ const store = new Vuex.Store({
                                 context.dispatch("loadInstitutions");
                             }
                         });
+
+                    context.dispatch("loadTeamDetails", { id: team.id, stopLoading: false})
                 }
             }
         },
@@ -144,8 +147,11 @@ const store = new Vuex.Store({
 
             await context.dispatch("loadInstitutionsScore")
         },
-        async loadTeamDetails(context, id) {
-            // Only load teams when necessary
+        async loadTeamDetails(context, payload) {
+            const id = payload.id;
+            const stopLoading = payload.stopLoading && true;
+
+                // Only load teams when necessary
             if (typeof context.state.teamDetails[id] !== "undefined") {
                 return true;
             }
@@ -156,13 +162,21 @@ const store = new Vuex.Store({
                 const response = await fetch(api + "/team/" + id).then(response => response.json())
 
                 context.commit('updateTeamDetails', {id: id, value: response})
-                context.commit('stopLoading')
+
+                if (stopLoading)
+                {
+                    context.commit('stopLoading')
+                }
 
                 return true;
             }
             catch (error) {
                 context.commit('updateTeamDetails', {id: id, value: null})
-                context.commit('stopLoading')
+
+                if (stopLoading)
+                {
+                    context.commit('stopLoading')
+                }
 
                 return false;
             }
