@@ -38,6 +38,16 @@
                         legend: {
                             display: false,
                         },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    const formatter = new Intl.NumberFormat(localStorage.lang);
+                                    const teamName = data.datasets[tooltipItem.datasetIndex].label;
+                                    const number = formatter.format(parseInt(tooltipItem.yLabel));
+                                    return `${teamName}: ${number}`;
+                                }
+                            }
+                        },
                         maintainAspectRatio: false,
                         scales: {
                             yAxes: [
