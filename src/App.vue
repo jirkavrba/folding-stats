@@ -9,7 +9,7 @@
             <router-link to="/top5">
                 <button class="menu__item">Top 5</button>
             </router-link>
-            <router-link to="/teams">
+            <router-link to="/">
                 <button class="menu__item">{{ $t('teams') }}</button>
             </router-link>
             <router-link to="/institutions">

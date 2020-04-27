@@ -9,44 +9,70 @@
             'color',
             'type'
         ],
+        computed: {
+            teams() {
+                return  this.$store.state.teams
+            }
+        },
         mounted() {
-            const sets = this.computeDataSets();
-
-            this.renderChart(
-                {
-                    labels: sets.labels,
-                    datasets: sets.data
-                },
-                {
-                    legend: {
-                        display: true,
-                    },
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: [
-                            {
-                                type: 'logarithmic',
-                                ticks: {
-                                    callback: function (label) {
-                                        if (label > 1000000) {
-                                            return label / 1000000 + "M";
-                                        }
-
-                                        if (label > 1000) {
-                                            return label / 1000 + "k";
-                                        }
-
-                                        return label;
-                                    }
-                                },
-                            }
-                        ]
-                    }
-
-                }
-            )
+            this.render();
+        },
+        watch: {
+            teams() {
+                this.render()
+            }
         },
         methods: {
+            render() {
+                if (this.teams === null || this.teams === undefined) {
+                    return;
+                }
+                const sets = this.computeDataSets();
+
+                this.renderChart(
+                    {
+                        labels: sets.labels,
+                        datasets: sets.data
+                    },
+                    {
+                        legend: {
+                            display: true,
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (tooltipItem, data) {
+                                    const formatter = new Intl.NumberFormat(localStorage.lang);
+                                    const teamName = data.datasets[tooltipItem.datasetIndex].label;
+                                    const number = formatter.format(parseInt(tooltipItem.yLabel));
+                                    return `${teamName}: ${number}`;
+                                }
+                            }
+                        },
+                        maintainAspectRatio: false,
+                        scales: {
+                            yAxes: [
+                                {
+                                    type: 'logarithmic',
+                                    ticks: {
+                                        callback: function (label) {
+                                            if (label > 1000000) {
+                                                return label / 1000000 + "M";
+                                            }
+
+                                            if (label > 1000) {
+                                                return label / 1000 + "k";
+                                            }
+
+                                            return label;
+                                        }
+                                    },
+                                }
+                            ]
+                        }
+
+                    }
+                )
+            },
             formatDate(date) {
                 return date.getDate() + ". " +
                     (date.getMonth() + 1) + ". " +

@@ -1,7 +1,7 @@
 <template>
     <div v-if="typeof this.details !== 'undefined' && this.details !== null">
         <div class="links">
-            <router-link to="/teams" class="link">
+            <router-link to="/" class="link">
                 &leftarrow; {{ $t('back') }}
             </router-link>
             <a :href="'https://stats.foldingathome.org/' + this.details.type + '/' + this.details.id" target="_blank"
