@@ -47,7 +47,7 @@
                 const loaded = this.$store.state.teamDetails[this.$route.params.id] !== undefined
 
                 if (!loaded) {
-                    this.$router.replace("/teams");
+                    this.$router.replace("/");
                     return;
                 }
 
