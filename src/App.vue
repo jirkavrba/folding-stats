@@ -35,7 +35,7 @@
                 <span v-html="$t('addition_request')"></span>
             </div>
             &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž, Ondřej Štorc<br>
-            <span v-html="$t('attribution')"></span>
+            <span class="no-decoration" v-html="$t('attribution')"></span>
         </footer>
         <LoadingOverlay v-if="this.$store.state.loading" :progress="this.$store.state.loadingProgress"/>
     </div>
@@ -184,6 +184,10 @@
 
     .app .join a {
         color: #000000;
+        text-decoration: none;
+    }
+
+    .app .no-decoration a {
         text-decoration: none;
     }
 
