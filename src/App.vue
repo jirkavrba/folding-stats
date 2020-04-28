@@ -20,7 +20,7 @@
             <div class="row counters">
                 <div class="col-xs-12">
                     <div class="total__intro">{{ $t('total') }}</div>
-                    <h1 class="total">{{ formattedTotal }}</h1>
+                    <h1 class="total">{{ $n($store.state.total) }}</h1>
                     <div class="total__intro">{{ $t('points') }}</div>
                 </div>
             </div>
@@ -59,15 +59,10 @@
             LoadingOverlay,
         },
         methods: {},
-        computed: {
-            formattedTotal: function () {
-                return this.$store.state.total.toLocaleString('en-US').replace(/,/g, " ")
-            }
-        },
         async mounted() {
             await this.$store.dispatch("loadTeams")
 
-            window.setInterval(() =>  this.$store.dispatch("loadTeams", true), 5 * 60 * 1000);
+            window.setInterval(() => this.$store.dispatch("loadTeams", true), 5 * 60 * 1000);
         }
     }
 </script>
