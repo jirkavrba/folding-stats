@@ -20,7 +20,7 @@
             <div class="row counters">
                 <div class="col-xs-12">
                     <div class="total__intro">{{ $t('total') }}</div>
-                    <h1 class="total">{{ formattedTotal }}</h1>
+                    <h1 class="total">{{ $n($store.state.total) }}</h1>
                     <div class="total__intro">{{ $t('points') }}</div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <span v-html="$t('addition_request')"></span>
             </div>
             &copy; 2020 <b>Jiří Vrba</b>, Jan Pokorný, Jakub Meinlschmidt, Antonín Kříž, Ondřej Štorc<br>
-            <span v-html="$t('attribution')"></span>
+            <span class="no-decoration" v-html="$t('attribution')"></span>
         </footer>
         <LoadingOverlay v-if="this.$store.state.loading" :progress="this.$store.state.loadingProgress"/>
     </div>
@@ -59,15 +59,10 @@
             LoadingOverlay,
         },
         methods: {},
-        computed: {
-            formattedTotal: function () {
-                return this.$store.state.total.toLocaleString('en-US').replace(/,/g, " ")
-            }
-        },
         async mounted() {
             await this.$store.dispatch("loadTeams")
 
-            window.setInterval(() =>  this.$store.dispatch("loadTeams", true), 5 * 60 * 1000);
+            window.setInterval(() => this.$store.dispatch("loadTeams", true), 5 * 60 * 1000);
         }
     }
 </script>
@@ -189,6 +184,10 @@
 
     .app .join a {
         color: #000000;
+        text-decoration: none;
+    }
+
+    .app .no-decoration a {
         text-decoration: none;
     }
 

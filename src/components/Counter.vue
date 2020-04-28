@@ -3,11 +3,12 @@
         <img :src="logo" :alt="name" class="counter__logo">
         <div class="counter__name">{{ name }}</div>
         <div class="counter__count" :style="'color:' + color">
-            {{ loading ? $t('loading') : formatNumber(count) }}
+            {{ loading ? $t('loading') : $n(count) }}
         </div>
-        <div class="counter__increment" :style="'color:' + color" v-if="team && typeof details !== 'undefined' && details !== null">
+        <div class="counter__increment" :style="'color:' + color"
+             v-if="team && typeof details !== 'undefined' && details !== null">
             <span v-if="details.increment > 0">
-                + {{ formatNumber(details.increment) }}
+                + {{ $n(details.increment) }}
             </span>
             <span v-else>&mdash;</span>
         </div>
@@ -26,12 +27,6 @@
             "details",
             "loading",
         ],
-        methods: {
-            formatNumber(number)
-            {
-                return number.toLocaleString('en-US').replace(/,/g, " ")
-            }
-        },
     }
 </script>
 
