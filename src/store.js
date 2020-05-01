@@ -17,7 +17,6 @@ const store = new Vuex.Store({
         teams: null,
         institutions: null,
         teamDetails: {},
-        institutionDetails: {},
     },
     mutations: {
         updateTotal(state, value) {
@@ -120,8 +119,6 @@ const store = new Vuex.Store({
                 institution.count = sum;
                 institution.details = {increment: totalIncrement};
                 institution.loaded = true;
-
-                context.dispatch("loadInstitutionDetails", { id: team.id, stopLoading: false})
             }
 
             const sorted = context.state.institutions.sort((a, b) => b.count - a.count);
