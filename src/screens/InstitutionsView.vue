@@ -9,6 +9,7 @@
                         :logo="institution.logo"
                         :count="institution.count"
                         :color="institution.color"
+                        :details="{increment: institution.details.increment}"
                         :loading="!institution.loaded"
                 />
             </div>

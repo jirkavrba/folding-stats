@@ -6,8 +6,8 @@
             {{ loading ? $t('loading') : $n(count) }}
         </div>
         <div class="counter__increment" :style="'color:' + color"
-             v-if="team && typeof details !== 'undefined' && details !== null">
-            <span v-if="details.increment > 0">
+             v-if="details">
+            <span v-if="details.increment">
                 + {{ $n(details.increment) }}
             </span>
             <span v-else>&mdash;</span>
