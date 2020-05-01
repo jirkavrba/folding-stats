@@ -100,11 +100,10 @@ const store = new Vuex.Store({
         async loadInstitutionsScore(context) {
             context.commit("startLoading")
 
-            let totalIncrement = 0;
-
             for (let institution of context.state.institutions) {
 
                 let sum = 0;
+                let totalIncrement = 0;
 
                 for (let sourceTeam of institution.teams) {
                     let team = context.state.teams.find(team => team.id === sourceTeam.id);
