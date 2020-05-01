@@ -17,6 +17,7 @@ const store = new Vuex.Store({
         teams: null,
         institutions: null,
         teamDetails: {},
+        institutionDetails: {},
     },
     mutations: {
         updateTotal(state, value) {
@@ -100,6 +101,8 @@ const store = new Vuex.Store({
         async loadInstitutionsScore(context) {
             context.commit("startLoading")
 
+            let totalIncrement = 0;
+
             for (let institution of context.state.institutions) {
 
                 let sum = 0;
@@ -108,10 +111,17 @@ const store = new Vuex.Store({
                     let team = context.state.teams.find(team => team.id === sourceTeam.id);
 
                     sum += team.count;
+
+                    if (typeof context.state.teamDetails[team.id] !== "undefined") {
+                        totalIncrement += context.state.teamDetails[team.id].increment;
+                    }
                 }
 
                 institution.count = sum;
+                institution.details = {increment: totalIncrement};
                 institution.loaded = true;
+
+                context.dispatch("loadInstitutionDetails", { id: team.id, stopLoading: false})
             }
 
             const sorted = context.state.institutions.sort((a, b) => b.count - a.count);
