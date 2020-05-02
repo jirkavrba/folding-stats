@@ -10,6 +10,7 @@
                         :count="institution.count"
                         :color="institution.color"
                         :loading="!institution.loaded"
+                        :details="institution.details"
                 />
             </div>
         </div>
