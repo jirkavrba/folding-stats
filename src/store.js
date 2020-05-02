@@ -103,14 +103,20 @@ const store = new Vuex.Store({
             for (let institution of context.state.institutions) {
 
                 let sum = 0;
+                let totalIncrement = 0;
 
                 for (let sourceTeam of institution.teams) {
                     let team = context.state.teams.find(team => team.id === sourceTeam.id);
 
                     sum += team.count;
+
+                    if (typeof context.state.teamDetails[team.id] !== "undefined") {
+                        totalIncrement += context.state.teamDetails[team.id].increment;
+                    }
                 }
 
                 institution.count = sum;
+                institution.details = {increment: totalIncrement};
                 institution.loaded = true;
             }
 
