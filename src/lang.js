@@ -17,8 +17,9 @@ const messages = {
         loading: "Načítání...",
         back: "Zpět na výpis",
         view_at_folding: "Zobrazit na folding@home",
-        toggle_chart: "Přepnout graf (celkové skore / přírůstek za časový interval)"
-},
+        toggle_chart: "Přepnout graf (celkové skore / přírůstek za časový interval)",
+        toggle_chart_increase: "Přepnout graf (denní přirůstek / 6h přírustek)"
+    },
     en: {
         issues: "Bugs and suggestions",
         teams: "Individual teams",
@@ -32,7 +33,8 @@ const messages = {
         loading: "Loading...",
         back: "Return ",
         view_at_folding: "view at folding@home",
-        toggle_chart: "Toggle the chart type (total score / increase within time interval)"
+        toggle_chart: "Toggle the chart type (total score / increase within time interval)",
+        toggle_chart_increase: "Toggle the chart type (daily increase / 6h increase)"
     }
 }
 
