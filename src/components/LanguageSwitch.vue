@@ -3,13 +3,13 @@
         <div class="switch__box" tabindex="1">
             <div v-for="(lang, i) in $i18n.availableLocales" class="switch__value" :key="`LangCurrent${i}`">
                 <input class="switch__input" type="radio" v-model="$i18n.locale" :id="i" :value="lang" name="language" :checked="`${$i18n.locale === lang} ? checked : ''`">
-                <p class="switch__input-text">{{ lang.toUpperCase() }}</p>
+                <p class="switch__input-text">{{ mapLang(lang.toUpperCase()) }}</p>
             </div>
             <img class="switch__arrow" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxkZWZzLz48cGF0aCBkPSJNNTAwIDc3NUwxMCAyODdsNjQtNjIgNDI2IDQyNSA0MjYtNDI1IDY0IDYyLTQ5MCA0ODh6Ii8+PC9zdmc+" alt="" aria-hidden="true">
         </div>
         <ul class="switch__list">
             <li v-for="(lang, i) in $i18n.availableLocales" :key="`LangSelect${i}`" v-on:click="saveLanguage(lang)">
-                <label class="switch__option" :for="i" aria-hidden="true">{{ lang.toUpperCase() }}</label>
+                <label class="switch__option" :for="i" aria-hidden="true">{{ mapLang(lang.toUpperCase()) }}</label>
             </li>
         </ul>
     </div>
@@ -20,6 +20,14 @@
         methods: {
             saveLanguage(lang) {
                 localStorage.lang = lang;
+            },
+            mapLang(lang) {
+                switch (lang) {
+                    case "SC":
+                        return "CZ 2.0";                
+                    default:
+                        return lang;
+                }
             }
         }
     }
