@@ -32,6 +32,7 @@ deploy:dev:
   script:
     - rm -Rf public
     - mv dist public
+    - cp .fit-pages.yml public/
   environment:
     name: $CI_COMMIT_REF_NAME
     url: https://folding.fit.cvut.cz/@${CI_COMMIT_REF_NAME}/
