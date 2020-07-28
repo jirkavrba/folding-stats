@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const api = "https://folding.vrba.dev/api";
-const proxy = "https://corsanywhere.herokuapp.com/";
+const proxy = "https://cors-anywhere.herokuapp.com/";
 const folding = proxy + "https://stats.foldingathome.org/api";
 
 const store = new Vuex.Store({
